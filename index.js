@@ -21,10 +21,36 @@ app.use(bodyParser.json());
 
 
 
-app.get('/', (req, res) => {
-  res.send('Hello Katoutou!')
-})
+// import connection to database
+const connect = require('./database/connect');
 
+// import routings
+const todoAPI = require('./routes/todoAPI');
+const userAPI = require('./routes/userAPI');
+
+const userDetailsAPI = require('./routes/userDetailsAPI');
+const postAPI = require('./routes/postAPI');
+const tagAPI = require('./routes/tagAPI');
+
+// use routings
+// app.use('', userAPI);
+app.use('/api/v1', userAPI);
+// app.use('', todoAPI);
+app.use('/api/v2', todoAPI);
+
+app.use('/api/v3', userDetailsAPI);
+app.use('/api/v4', postAPI);
+app.use('/api/v5', tagAPI);
+
+
+// __________________________________________________________________
+app.get('/', (req, res) => {
+  res.json({message: 'Hello Katoutou!'});
+});
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
+    console.log(`Example app listening at http://localhost:${port}`)
+  })
+
+
+
+
