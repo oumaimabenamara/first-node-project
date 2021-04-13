@@ -38,3 +38,17 @@ router.delete('/posts/:id' , async(req, res) => {
     const PostToDelete = await Post.findByIdAndDelete(req.params.id);
     res.json({message: "Post deleted !"});
 });
+
+
+
+// __________________________________________________________________
+router.put('/posts/affectTags/:idPost/:idTag', async(req, res) => {
+    const postPlusNewTag = await Post.findByIdAndUpdate(req.params.idPost, {$push: {tags: req.params.idTag}}, {new: true});
+    res.json({message: 'Tag affected successfully !'});
+});
+
+router.put('/posts/desaffectPosts/:idPost/:idTag', async(req, res) => {
+    const postMoinsNewTag = await Post.findByIdAndUpdate(req.params.idPost, {$pull: {tags: req.params.idTag}}, {new: true});
+    console.log(postMoinsNewTag);
+    res.json({message: 'tag desaffected successfully !'});
+});

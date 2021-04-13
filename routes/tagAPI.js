@@ -9,6 +9,7 @@ module.exports = router;
 // __________________________________________________________________
 // get all tags
 router.get('/tags' , async(req, res) => {
+    // const allTags = await Tag.find().populate("posts");
     const allTags = await Tag.find();
     res.json(allTags);
 });
@@ -37,4 +38,19 @@ router.put('/tags/:id' , async(req, res) => {
 router.delete('/tags/:id' , async(req, res) => {
     const TagToDelete = await Tag.findByIdAndDelete(req.params.id);
     res.json({message: "Tag deleted !"});
+});
+
+
+
+
+// __________________________________________________________________
+router.put('/tags/affectPosts/:idTag/:idPost', async(req, res) => {
+    const tagPlusNewPost = await Tag.findByIdAndUpdate(req.params.idTag, {$push: {posts: req.params.idPost}}, {new: true});
+    res.json({message: 'Post affected successfully !'});
+});
+
+router.put('/tags/desaffectPosts/:idTag/:idPost', async(req, res) => {
+    const tagMoinsNewPost = await Tag.findByIdAndUpdate(req.params.idTag, {$pull: {posts: req.params.idPost}}, {new: true});
+    console.log(tagMoinsNewPost);
+    res.json({message: 'Post desaffected successfully !'});
 });

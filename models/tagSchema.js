@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const tagSchema = mongoose.Schema({
     title: String,
-    description: String
+    description: String,
+    posts: [{type: mongoose.Schema.Types.ObjectId, ref:'post'}]
 },
 {
     versionkey: false ,

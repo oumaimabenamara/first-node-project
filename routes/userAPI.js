@@ -56,3 +56,38 @@ router.get('/users/filter5/:minAgee/:maxAgee', async(req, res) => {
 // router.get('/users/:minAge:maxAge', async(req, res) => {
 //     const ageFilteredUsers = await User.find({"minAge"})
 // });
+
+
+
+// __________________________________________________________________
+router.put('/users/affectDetails/:idUser/:idDetails', async(req, res) => {
+    const UserPlusDetails = await User.findByIdAndUpdate(req.params.idUser, {usersDetails: req.params.idDetails}, {new: true});
+    res.json({message: 'Details affected successfully !'});
+});
+
+router.put('/users/desaffectDetails/:idUser/:idDetails', async(req, res) => {
+    const UserMoinsDetails = await User.findByIdAndUpdate(req.params.idUser, {usersDetails: ""}, {new: true});
+    res.json({message: 'Details desaffected successfully !'});
+});
+
+// __________________________________________________________________
+router.put('/users/affectTodos/:idUser/:idTodo', async(req, res) => {
+    const UserPlusTodo = await User.findByIdAndUpdate(req.params.idUser, {$push: {todos: req.params.idTodo}}, {new: true});
+    res.json({message: 'Todos affected successfully !'});
+});
+
+router.put('/users/desaffectTodos/:idUser/:idTodo', async(req, res) => {
+    const UserMoinsTodo = await User.findByIdAndUpdate(req.params.idUser, {$pull: {todos: req.params.idTodo}}, {new: true});
+    res.json({message: 'Todos desaffected successfully !'});
+});
+
+// __________________________________________________________________
+router.put('/users/affectTodos/:idUser/:idPost', async(req, res) => {
+    const UserPlusPost = await User.findByIdAndUpdate(req.params.idUser, {$push: {posts: req.params.idPost}}, {new: true});
+    res.json({message: 'Posts affected successfully !'});
+});
+
+router.put('/users/desaffectTodos/:idUser/:idPost', async(req, res) => {
+    const UserMoinsPost = await User.findByIdAndUpdate(req.params.idUser, {$pull: {posts: req.params.idPost}}, {new: true});
+    res.json({message: 'Posts desaffected successfully !'});
+});
