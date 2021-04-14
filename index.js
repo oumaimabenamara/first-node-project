@@ -34,6 +34,8 @@ const tagAPI = require('./routes/tagAPI');
 
 const mailAPI = require('./routes/mailAPI');
 
+const uploadAPI = require('./routes/uploadAPI');
+
 // require env
 // const dotenv = require('dotenv');
 // dotenv.config();
@@ -53,7 +55,9 @@ app.use('/api/v3', userDetailsAPI);
 app.use('/api/v4', postAPI);
 app.use('/api/v5', tagAPI);
 
-app.use('', mailAPI)
+app.use('', mailAPI);
+
+app.use('', uploadAPI);
 
 
 // __________________________________________________________________
