@@ -36,6 +36,8 @@ const mailAPI = require('./routes/mailAPI');
 
 const uploadAPI = require('./routes/uploadAPI');
 
+const authAPI = require('./routes/authAPI');
+
 // require env
 // const dotenv = require('dotenv');
 // dotenv.config();
@@ -59,6 +61,11 @@ app.use('', mailAPI);
 
 app.use('', uploadAPI);
 
+app.use('', authAPI);
+
+
+// STATIC FILES 
+app.use("/", express.static('./uploads'))
 
 // __________________________________________________________________
 app.get('/', (req, res) => {
